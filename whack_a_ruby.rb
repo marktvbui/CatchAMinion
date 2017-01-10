@@ -77,7 +77,6 @@ class WhackARuby < Gosu::Window
       end
     end
   end
-
 end
 
 window = WhackARuby.new

@@ -12,7 +12,7 @@ class WhackARuby < Gosu::Window
     @velocity_x = 7
     @velocity_y = 4
     @visible = 0
-    @image = Gosu::Image.new('hammer.png')
+    @hammer_image = Gosu::Image.new('hammer.png')
     @hit = 0
   end
 
@@ -31,6 +31,7 @@ class WhackARuby < Gosu::Window
     end
     @hammer_image.draw(mouse_x - 40, mouse_y - 10, 1)
   end
+
 end
 
 window = WhackARuby.new

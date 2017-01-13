@@ -2,18 +2,21 @@
 require 'gosu'
 
 class WhackARuby < Gosu::Window
+
   def initialize
     super(800, 600)
-    self.caption = 'Catch the Banana!'
-    @image = Gosu::Image.new('banana.png')
+    self.caption = 'Catch the Minion!'
+    @background_image = Gosu::Image.new(self, "images.jpeg", :tileable => true)
+    @image = Gosu::Image.new('minion-150px.png')
     @x = 200
     @y = 200
     @width = 50
-    @height = 43
-    @velocity_x = 5                       
+    @height = 50
+    # determines the speed of the first image
+    @velocity_x = 5                      
     @velocity_y = 5
     @visible = 0
-    @hammer_image = Gosu::Image.new('purple-minion.png')
+    @hammer_image = Gosu::Image.new('purple-minion2.png')
     @hit = 0
     @font = Gosu::Font.new(30)
     @score = 0
@@ -35,10 +38,11 @@ class WhackARuby < Gosu::Window
   end
 
   def draw
+    @background_image.draw_as_quad(0, 0, 0xffffffff, 800, 0, 0xffffffff, 800, 600, 0xffffffff, 0, 600, 0xffffffff, 0)
     if @visible > 0
       @image.draw(@x - @width / 2, @y - @height / 2, 1)
     end
-    @hammer_image.draw(mouse_x - 40, mouse_y - 10, 1)
+    @hammer_image.draw(mouse_x - 25, mouse_y - 25, 1)
     if @hit == 0
       c = Gosu::Color::NONE
     elsif @hit == 1
@@ -60,7 +64,7 @@ class WhackARuby < Gosu::Window
   def button_down(id)
     if @playing
       if (id == Gosu::MsLeft)
-        if Gosu.distance(mouse_x, mouse_y, @x, @y) < 50 && @visible >= 0
+        if Gosu.distance(mouse_x, mouse_y, @x, @y) < 150 && @visible >= 0
           @hit = 1
           @score += 5
         else

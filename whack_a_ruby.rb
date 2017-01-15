@@ -12,11 +12,11 @@ class WhackARuby < Gosu::Window
     @y = 200
     @width = 50
     @height = 50
-    # determines the speed of the first image
-    @velocity_x = 5                      
-    @velocity_y = 5
+    # determines the speed of the first image (object that needs to be caught)
+    @velocity_x = 1                      
+    @velocity_y = 1
     @visible = 0
-    @hammer_image = Gosu::Image.new('purple-minion2.png')
+    @chaser_image = Gosu::Image.new('purple-minion2.png')
     @hit = 0
     @font = Gosu::Font.new(30)
     @score = 0
@@ -30,8 +30,9 @@ class WhackARuby < Gosu::Window
       @y += @velocity_y
       @velocity_x *= -1 if @x + @width / 2 > 800 || @x - @width / 2 < 0
       @velocity_y *= -1 if @y + @height / 2 > 600 || @y - @height / 2 < 0
+      #below determines how long minion stays on the screen before blinking out
       @visible -= 1
-      @visible = 30 if @visible < -10 && rand < 0.01
+      @visible = 30 if @visible < -5 && rand < 0.10
       @time_left = (100 - ((Gosu.milliseconds - @start_time) / 1000))
       @playing = false if @time_left < 0
     end
@@ -42,7 +43,7 @@ class WhackARuby < Gosu::Window
     if @visible > 0
       @image.draw(@x - @width / 2, @y - @height / 2, 1)
     end
-    @hammer_image.draw(mouse_x - 25, mouse_y - 25, 1)
+    @chaser_image.draw(mouse_x - 73, mouse_y - 51, 1)
     if @hit == 0
       c = Gosu::Color::NONE
     elsif @hit == 1
